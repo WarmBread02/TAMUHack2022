@@ -1,0 +1,3 @@
+[submodule "healthkit-data-parser"]
+	path = healthkit-data-parser
+	url = https://github.com/hiimivantang/healthkit-data-parser.git
