@@ -231,3 +231,4 @@ def PointDeterminate(filename):
 
 
 
+#PointDeterminate(filename)

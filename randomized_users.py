@@ -28,7 +28,10 @@ count = 0
 for i in range(100):
     
     seed(i)
-    rand_male = names.get_full_name(gender = 'male')
+
+    rand_male_first = names.get_first_name(gender = 'male')
+    rand_male_last = names.get_last_name()
+    rand_male = rand_male_first + ' ' + rand_male_last
     person = []
     person.append(rand_male)
 
@@ -75,8 +78,9 @@ for i in range(100):
     person.append(randint(0, 5))
     person.append(random.choice(termChoice))
     male_people.append(person)
-    tweetArr = TweetRate(rand_male)
-    instaArr = InstaRate(rand_male)
+
+    tweetArr = scanTweets.TweetRate(rand_male_first)
+    instaArr = scanTweets.InstaRate(rand_male_first)
     person.append(tweetArr[0]+instaArr[0])
     person.append(tweetArr[1]+instaArr[1])
     person.append(tweetArr[2]+instaArr[2]) 
