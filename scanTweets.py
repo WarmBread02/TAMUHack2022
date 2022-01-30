@@ -44,23 +44,21 @@ def InstaGrab(username):
 
 #--------------------------------------- Parse through each tweet and determine if it's "good" or bad. this is not super great
 def TweetRate(User):
-    if(TweetGrab(100,User)):
-        sumPos = 0
-        sumNeg = 0
-        sumNeu = 0
-        with open(User+"Twitter.csv", newline='') as csvfile:
-            reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-            for row in reader:
-                tempans = sentiment_scores(row)
-                if(tempans == "Positive"):
-                    sumPos+=1
-                if(tempans == "Negative"):
-                    sumNeg+=1
-                if(tempans == "Neutral"):
-                    sumNeu+=1
-        print(str(sumPos) + " positive Tweets")
-        print(str(sumNeg) + " negative Tweets")
-        print(str(sumNeu) + " neutral Tweetss")
+    TweetGrab(100,User)
+    sumPos = 0
+    sumNeg = 0
+    sumNeu = 0
+    with open(User+"Twitter.csv", newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in reader:
+            tempans = sentiment_scores(row)
+            if(tempans == "Positive"):
+                sumPos+=1
+            if(tempans == "Negative"):
+                sumNeg+=1
+            if(tempans == "Neutral"):
+                sumNeu+=1
+    return [sumPos,sumNeg,sumNeu]
 #------------------------------------------
 def InstaRate(User):
     InstaGrab(User)
@@ -77,13 +75,9 @@ def InstaRate(User):
                 sumNeg+=1
             if(tempans == "Neutral"):
                 sumNeu+=1
-    print(str(sumPos) + " positive Instagram Captions")
-    print(str(sumNeg) + " negative Instagram Captions")
-    print(str(sumNeu) + " neutral Instagram Captions")
+    return [sumPos,sumNeg,sumNeu]
 
 
 #--------------------------------------------
 
 
-InstaRate('elonmusk')
-TweetRate('elonmusk')

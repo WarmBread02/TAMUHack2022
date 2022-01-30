@@ -9,6 +9,8 @@ from random import randint
 from random import uniform
 import random
 
+import scanTweets
+
 from StateFarmPointSystem import criminalRecord, drivingRecord, insuranceType
 
 
@@ -25,7 +27,7 @@ female_people = []
 count = 0
 for i in range(100):
     
-    seed(count)
+    seed(i)
     rand_male = names.get_full_name(gender = 'male')
     person = []
     person.append(rand_male)
@@ -73,7 +75,11 @@ for i in range(100):
     person.append(randint(0, 5))
     person.append(random.choice(termChoice))
     male_people.append(person)
-    count += 1
+    tweetArr = TweetRate(rand_male)
+    instaArr = InstaRate(rand_male)
+    person.append(tweetArr[0]+instaArr[0])
+    person.append(tweetArr[1]+instaArr[1])
+    person.append(tweetArr[2]+instaArr[2]) 
 
 with open('testsMales.csv', 'w', newline= '') as csvfile:
     csvwriter = csv.writer(csvfile)

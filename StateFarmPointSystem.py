@@ -150,6 +150,18 @@ def hobbies(hobbyDanger):
     else:
         points += 0
 
+def positivity(term):
+    global points
+    points+=term
+
+def negativity(term):
+    global points 
+    points-=term
+
+def neutrality(term):
+    global points
+    points+=term/2
+
 def insuranceType(term):
     #this will be separate from the point scale
     #long term will have a lower discount than short term as a base factor
@@ -173,41 +185,46 @@ def discountRate(points, baseDiscount):
     
     discount += baseDiscount
 
-    return discount
+    return discount    
 
-with open('tests.csv', mode = 'rt') as file:
-    csvreader = csv.reader(file)
-    line_count = 0
-    for row in csvreader:
-        if(line_count == 0):
-            print(f'Records are shown as: {", ".join(row)}')
-            line_count += 1
-        else:
-            #name, smoke, medicalRecord, drugUse, prescriptions, drinkUse, drivingRecord, age, weight, height, criminalRecord, familyConditions, gender, hobbies, insuranceType
-            print('Name:', row[0])
-            smoker(row[1])
-            medicalSeverity(int(row[2]))
-            drugUse(row[3])
-            prescriptionSeverity(int(row[4]))
-            drinkUse(int(row[5]))
-            drivingRecord(int(row[6]))
-            age(int(row[7]))
-            body_mass_index(float(row[8]), float(row[9]))
-            criminalRecord(int(row[10]))
-            familyConditions(int(row[11]))
-            gender(row[12])
-            hobbies(int(row[13]))
 
-            print("Points are:", points)
-            print("Discount Rate:", discountRate(points, insuranceType(row[14])),'%')
-            if(points > 100):
-                print("Eligible for discount: Yes")
+def PointDeterminate(filename):
+    with open(filename+'.csv', mode = 'rt') as file:
+        csvreader = csv.reader(file)
+        line_count = 0
+        for row in csvreader:
+            if(line_count == 0):
+                print(f'Records are shown as: {", ".join(row)}')
+                line_count += 1
             else:
-                print("Eligible for discount: No")
-            
-            points = 0
+                #name, smoke, medicalRecord, drugUse, prescriptions, drinkUse, drivingRecord, age, weight, height, criminalRecord, familyConditions, gender, hobbies, insuranceType
+                print('Name:', row[0])
+                smoker(row[1])
+                medicalSeverity(int(row[2]))
+                drugUse(row[3])
+                prescriptionSeverity(int(row[4]))
+                drinkUse(int(row[5]))
+                drivingRecord(int(row[6]))
+                age(int(row[7]))
+                body_mass_index(float(row[8]), float(row[9]))
+                criminalRecord(int(row[10]))
+                familyConditions(int(row[11]))
+                gender(row[12])
+                hobbies(int(row[13]))
+                negativity(row[14])
+                positivity(row[15])
+                neutrality(row[16])
 
-            line_count += 1
+                print("Points are:", points)
+                print("Discount Rate:", discountRate(points, insuranceType(row[14])),'%')
+                if(points > 100):
+                    print("Eligible for discount: Yes")
+                else:
+                    print("Eligible for discount: No")
+                
+                points = 0
+
+                line_count += 1
 
 
 
